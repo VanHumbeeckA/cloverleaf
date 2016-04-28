@@ -26,10 +26,12 @@ Meteor.methods({
         return Recipes.find().count();
     },
     'recipes.getNewRecipe' () {
-        var array = Recipes.find().fetch();
-        var randomIndex = Math.floor( Math.random() * array.length );
-        var element = array[randomIndex];
-        return element;
+        let query = {
+            rand: {
+                $gte: Math.random()
+            }
+        };
+        return Recipes.findOne({$query: query, $orderby: { rand: 1 } });
     }
 });
 
