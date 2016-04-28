@@ -26,8 +26,8 @@ Meteor.methods({
         return Recipes.find().count();
     },
     'recipes.getNewRecipe' () {
+        // MAKE SURE INDEX ON rand IS SET!
         return Recipes.findOne({ rand: {$gte: Math.random() } }); // , {sort: {rand:1}, limit:1}).fetch()
-        // return Recipes.find({}, {sort: { _id:Random.choice([1,-1])}}).fetch(); // , {sort: {rand:1}, limit:1}).fetch()
     }
 });
 
