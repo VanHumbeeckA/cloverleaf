@@ -4,6 +4,8 @@ import ngMaterial from 'angular-material';
 import uiRouter from 'angular-ui-router';
 import todosList from '../imports/components/todosList/todosList';
 import components from './components/module';
+import services from './scripts/services/module';
+import 'angular-material-icons';
 import '../imports/startup/accounts-config';
 
 angular.module('cloverleaf', [
@@ -12,7 +14,9 @@ angular.module('cloverleaf', [
     uiRouter,
     todosList.name,
     components.name,
-    'accounts.ui'
+    services.name,
+    'accounts.ui',
+    'ngMdIcons'
 ]).config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => new RoutingConfig($stateProvider, $urlRouterProvider)]);
 
 function onReady() {
@@ -31,9 +35,14 @@ class RoutingConfig {
 
         $urlRouterProvider.otherwise('/my-week');
 
-        $stateProvider.state('my-week', {
-            url: '/my-week',
-            templateUrl: 'client/views/my-week.html'
-        });
+        $stateProvider
+            .state('my-week', {
+                url: '/my-week',
+                templateUrl: 'client/views/my-week.html'
+            })
+            .state('suggester', {
+                url: '/suggester',
+                templateUrl: 'client/views/suggest-random.html'
+            })
     }
 }
