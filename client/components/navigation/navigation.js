@@ -10,7 +10,7 @@ class NavigationCtrl {
     }
 
     loginWithGoogle(){
-        Meteor.loginWithGoogle({}, (err) => {
+        Meteor.loginWithGoogle({ requestPermissions:['https://www.googleapis.com/auth/calendar.readonly']}, (err) => {
             if (err) {
                 //Session.set('errorMessage', err.reason || 'Unknown error');
                 console.error(err);
@@ -21,6 +21,13 @@ class NavigationCtrl {
                 this.loggedIn = true;
                 this.username = Meteor.user().profile.name;
             }
+        });
+    }
+
+    test(){
+        Meteor.call('calendar.get',function(error, result) {
+            if(error) console.error(error);
+            console.log(result );
         });
     }
 
