@@ -6,10 +6,29 @@ import {check} from 'meteor/check';
 export const Recipes = new Mongo.Collection('recipes');
 
 if (Meteor.isServer) {
-    Meteor.publish('recipes', function() {
-        return Recipes.find({});
+    Meteor.publish('all-recipes-names', function recipesPublication() {
+        return Recipes.find({}, {name: 1});
     });
+
+    Meteor.publish('recipeCount', function recipesPublication() {
+        return Recipes.find({}, {name: 1}).count();
+    })
 }
+
+Meteor.methods({
+    'recipes.count' () {
+
+        // Make sure the user is Logged in
+        if (!Meteor.userId()) {
+            throw new Meteor.Error('not-authorized');
+        }
+
+        return Recipes.find().count();
+    }
+});
+
+
+
 
 var Schemas = Schemas || {};
 

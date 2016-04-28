@@ -3,44 +3,49 @@ import angularMeteor from 'angular-meteor';
 import { ReactiveVar } from 'meteor/reactive-var'
 import compontents from '../module';
 import {Recipes} from '../../../imports/api/recipes.js';
-import {Tasks} from "../../../imports/api/tasks.js";
 import template from './suggester.html';
 
 class SuggesterCtrl {
     constructor($scope) {
         $scope.viewModel(this);
 
-        this.subscribe('recipes');
+        this.subscribe('all-recipes-names');
 
-        this.toggleNewRecipe = new ReactiveVar(true);
+        this.recipeCountVar = new ReactiveVar(0);
+        this.randomRecipeNameVar = new ReactiveVar("Click the randomizer button!");
 
         this.helpers({
-            randomRecipe() {
-
-                // // If hide completed is checked, filter tasks
-                // if (this.getReactively('hideCompleted')) {
-                //
-                // }
-
-                this.toggleNewRecipe.get();
-
-                var total = Recipes.find().count();
-                var random = Math.round(Math.random()*total);
-                console.log(total);
-                // return Recipes.findOne();
-                return Tasks.findOne();
+            recipes() {
+                return Recipes.find();
             },
+            recipeCount() {
+                return this.recipeCountVar.get();
+            },
+            randomRecipe() {
+                return this.randomRecipeNameVar.get();
+            },
+
             currentUser() {
                 return Meteor.user();
             }
         });
+
+        Meteor.call('recipes.count', (error, result) => {
+            this.recipeCountVar.set(result);
+        })
     }
 
     getNewRecipe() {
-        console.log('get new recipe');
-        this.toggleNewRecipe.set(!this.toggleNewRecipe.get());
-        console.log(this.toggleNewRecipe.get())
+        var array = Recipes.find().fetch();
+        var randomIndex = Math.floor( Math.random() * array.length );
+        var element = array[randomIndex];
+        console.log(element);
+        if (element) {
+            this.randomRecipeNameVar.set(element.name);
+        }
     }
+
+
 }
 
 
