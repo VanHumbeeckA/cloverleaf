@@ -11,14 +11,13 @@ class NavigationCtrl {
 
     loginWithGoogle(){
         Meteor.loginWithGoogle({}, (err) => {
-            console.log("returned");
             if (err) {
                 //Session.set('errorMessage', err.reason || 'Unknown error');
-                console.log(err);
+                console.error(err);
                 this.loggedIn = false;
             }
             else {
-                console.log("true!!!")
+                console.info("User logged in")
                 this.loggedIn = true;
                 this.username = Meteor.user().profile.name;
             }
