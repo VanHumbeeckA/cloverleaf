@@ -1,5 +1,5 @@
 import angular from 'angular';
-
+import components from '../module';
 import template from './navigation.html';
 
 class NavigationCtrl {
@@ -33,7 +33,7 @@ class NavigationCtrl {
 
 }
 
-export default angular.module('navigation', [])
+components
     .component('navigation', {
         templateUrl: 'client/components/navigation/navigation.html',
         controller: ['$scope', NavigationCtrl]

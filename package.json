@@ -9,6 +9,7 @@
     "angular-material": "^1.0.7",
     "angular-meteor": "^1.3.10",
     "angular-ui-router": "^0.2.18",
-    "meteor-node-stubs": "~0.2.0"
+    "meteor-node-stubs": "~0.2.0",
+    "moment": "^2.13.0"
   }
 }

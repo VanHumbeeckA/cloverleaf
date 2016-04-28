@@ -3,7 +3,7 @@ import angularMeteor from 'angular-meteor';
 import ngMaterial from 'angular-material';
 import uiRouter from 'angular-ui-router';
 import todosList from '../imports/components/todosList/todosList';
-import navigation from './components/navigation/navigation';
+import components from './components/module';
 import '../imports/startup/accounts-config';
 
 angular.module('cloverleaf', [
@@ -11,7 +11,7 @@ angular.module('cloverleaf', [
     ngMaterial,
     uiRouter,
     todosList.name,
-    navigation.name,
+    components.name,
     'accounts.ui'
 ]).config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => new RoutingConfig($stateProvider, $urlRouterProvider)]);
 
