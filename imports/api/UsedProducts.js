@@ -14,7 +14,7 @@ Schemas.ConsumedProducts = new SimpleSchema({
     orderId: {
         type: String
     },
-    mealIds: {
+    planningIds: {
         type: [String]
     }
 });
