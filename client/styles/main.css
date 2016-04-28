@@ -5,3 +5,7 @@
 .cloverfield-day-row {
     max-width: 800px;
 }
+
+.full-width {
+    width: 100%;
+}

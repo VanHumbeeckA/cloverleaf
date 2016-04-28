@@ -2,10 +2,10 @@ import compontents from '../module';
 
 class CalenderCtrl {
 
-    viewGoogleCalender() {
-        
-    }
 
+    needFood() {
+        alert('need food!');
+    }
 
 }
 

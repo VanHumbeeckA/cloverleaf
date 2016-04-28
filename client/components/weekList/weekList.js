@@ -23,14 +23,10 @@ class WeekListCtrl {
                 console.error(error);
             } else {
                 this.googleCalender = result;
-                console.log(result);
                 this.generateWeek();
             }
         });
-
-
     }
-
 
     generateWeek() {
         var today = moment();
@@ -44,10 +40,6 @@ class WeekListCtrl {
             for (var j = 0; j < this.googleCalender.length; j++) {
                 let startEventDate = this.googleCalender[j].start.date ? moment(this.googleCalender[j].start.date ) : moment(this.googleCalender[j].start.dateTime);
                 let endEventDate = this.googleCalender[j].start.date ? moment(this.googleCalender[j].end.date ) : moment(this.googleCalender[j].end.dateTime);
-
-                console.log(date);
-                console.log(startEventDate);
-                console.log(endEventDate);
 
                 if (date.isSame(startEventDate, 'day')) {
                     calenderEvents.push({

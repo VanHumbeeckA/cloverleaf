@@ -2,17 +2,18 @@
 <div layout="column">
     <div layout="row" class="cloverfield-day-row" ng-repeat="day in $ctrl.week">
 
-        <calender flex="50" planning="day"></calender>
-        <meal flex="50" planning="day"></meal>
+        <!--<calender flex="50" planning="day"></calender>-->
+        <!--<meal flex="50" planning="day"></meal>-->
 
-        <!--<calender-->
-                <!--planning="day"-->
-                <!--ng-if="">-->
-
-        <!--</calender>-->
-        <!--<meal-->
-                <!--planning="day">-->
-
-        <!--</meal>-->
+        <calender
+                class="full-width"
+                planning="day"
+                ng-if="!day.planning.meal">
+        </calender>
+        <meal
+                class="full-width"
+                planning="day"
+                ng-if="day.planning.meal">
+        </meal>
     </div>
 </div>
