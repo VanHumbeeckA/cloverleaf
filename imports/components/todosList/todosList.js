@@ -1,8 +1,6 @@
-import angular from 'angular';
-import angularMeteor from 'angular-meteor';
-import { Tasks } from '../../api/tasks';
-
-import template from './todosList.html';
+import angular from "angular";
+import angularMeteor from "angular-meteor";
+import {Tasks} from "../../api/tasks";
 
 class TodosListCtrl {
     constructor($scope) {
@@ -60,6 +58,10 @@ class TodosListCtrl {
 
     setPrivate(task) {
         Meteor.call('tasks.setPrivate', task._id, !task.private);
+    }
+
+    loginWithGoogle(){
+        Meteor.loginWithGoogle();
     }
 }
 
