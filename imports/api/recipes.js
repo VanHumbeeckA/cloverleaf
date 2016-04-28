@@ -6,13 +6,56 @@ import {check} from 'meteor/check';
 export const Recipes = new Mongo.Collection('recipes');
 
 if (Meteor.isServer) {
-    Meteor.publish('all-recipes', function() {
+    Meteor.publish('recipes', function() {
         return Recipes.find({});
     });
-
-    Meteor.publish('recipe', function(tag) {
-        check(tag, String);
-
-        return Recipes.find({name: { $regex: '*' + tag + '*'}});
-    });
 }
+
+var Schemas = Schemas || {};
+
+Schemas.Structured = new SimpleSchema({
+    quantity: {
+        type: String
+    },
+    measure: {
+        type: String
+    },
+    ingredient: {
+        type: String
+    }
+});
+
+Schemas.Ingredient = new SimpleSchema({
+    structured: {
+        type: Schemas.Structured
+    },
+    unstructured: {
+        type: String
+    }
+});
+
+Schemas.Recipes = new SimpleSchema({
+    name: {
+        type: String
+    },
+    url: {
+        type: String
+    },
+    image: {
+        type: String
+    },
+    summary: {
+        type: String
+    },
+    description: {
+        type: String
+    },
+    extra: {
+        type: [String]
+    },
+    ingredients: {
+        type: [Schemas.Ingredient]
+    }
+});
+
+Recipes.attachSchema(Schemas.Recipes);

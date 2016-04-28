@@ -31,9 +31,14 @@ class RoutingConfig {
 
         $urlRouterProvider.otherwise('/my-week');
 
-        $stateProvider.state('my-week', {
-            url: '/my-week',
-            templateUrl: 'client/views/my-week.html'
-        });
+        $stateProvider
+            .state('my-week', {
+                url: '/my-week',
+                templateUrl: 'client/views/my-week.html'
+            })
+            .state('suggester', {
+                url: '/suggester',
+                templateUrl: 'client/views/suggest-random.html'
+            })
     }
 }
