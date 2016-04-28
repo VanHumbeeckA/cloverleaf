@@ -4,6 +4,7 @@ import ngMaterial from 'angular-material';
 import uiRouter from 'angular-ui-router';
 import todosList from '../imports/components/todosList/todosList';
 import components from './components/module';
+import 'angular-material-icons';
 import '../imports/startup/accounts-config';
 
 angular.module('cloverleaf', [
@@ -12,7 +13,8 @@ angular.module('cloverleaf', [
     uiRouter,
     todosList.name,
     components.name,
-    'accounts.ui'
+    'accounts.ui',
+    'ngMdIcons'
 ]).config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => new RoutingConfig($stateProvider, $urlRouterProvider)]);
 
 function onReady() {
