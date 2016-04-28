@@ -24,9 +24,14 @@ Meteor.methods({
         }
 
         return Recipes.find().count();
+    },
+    'recipes.getNewRecipe' () {
+        var array = Recipes.find().fetch();
+        var randomIndex = Math.floor( Math.random() * array.length );
+        var element = array[randomIndex];
+        return element;
     }
 });
-
 
 
 

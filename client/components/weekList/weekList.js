@@ -5,7 +5,9 @@ import moment from 'moment';
 import template from './weekList.html';
 
 class WeekListCtrl {
-    constructor($scope) {
+    constructor($scope, $q, suggesterSvc) {
+        this.suggesterSvc = suggesterSvc;
+        this.$q = $q;
         $scope.viewModel(this);
 
         this.helpers({});
@@ -16,19 +18,28 @@ class WeekListCtrl {
 
     generateWeek() {
         var today = moment();
+        var promises = [];
         for (var i = 0; i < 7; i++) {
             var date = moment(today).add(i, 'days');
 
-            this.week.push({
+            var planning = {
                 day: date.toDate(),
                 nbOfEaters: 2
-            });
+            };
+            this.week.push(planning);
+            promises.push(this.suggesterSvc.getNewRecipe());
         }
+        
+        this.$q.all(promises).then(results => {
+            _.forEach(results, (recipe, index) => {
+                this.week[index].recipe = recipe;
+            });
+        })
     }
 }
 
 components
     .component('weekList', {
         templateUrl: 'client/components/weekList/weekList.html',
-        controller: ['$scope', WeekListCtrl]
+        controller: ['$scope', '$q', 'suggesterSvc', WeekListCtrl]
     });
