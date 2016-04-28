@@ -26,7 +26,7 @@ Meteor.methods({
         console.log(filterEventKeys(result.data.items));
         //console.log(ISODateString(new Date()));
 
-        return Meteor.user().services.google.accessToken;
+        return filterEventKeys(result.data.items);
 
     },
 });

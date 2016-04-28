@@ -1,0 +1,19 @@
+<md-card>
+    <md-card-header>
+        <md-card-header-text layout="row" layout-align="space-between stretch">
+            <md-title class="md-title" layout="row" >
+                <strong>{{$ctrl.planning.weekday}}</strong>
+            </md-title>
+            <md-title class="md-title" layout="row" layout-align="end center">
+                <span>{{ $ctrl.planning.day | date : 'mediumDate' }}</span>
+            </md-title>
+        </md-card-header-text>
+    </md-card-header>
+
+    <md-card-content layout="row" layout-align="space-between stretch">
+        <div ng-repeat="event in $ctrl.planning.calenderEvents">
+            {{event.summary}}
+        </div>
+    </md-card-content>
+
+</md-card>
