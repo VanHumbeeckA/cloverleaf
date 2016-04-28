@@ -1,3 +1,4 @@
+/cloverleaf.iml
 node_modules/
 .meteor/local
 .idea/*

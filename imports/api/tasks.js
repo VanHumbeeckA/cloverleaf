@@ -1,6 +1,6 @@
-import {Meteor} from 'meteor/meteor';
-import {Mongo} from 'meteor/mongo';
-import {check} from 'meteor/check';
+import {Meteor} from "meteor/meteor";
+import {Mongo} from "meteor/mongo";
+import {check} from "meteor/check";
 
 export const Tasks = new Mongo.Collection('tasks');
 
@@ -33,7 +33,7 @@ Meteor.methods({
             text,
             createdAt: new Date(),
             owner: Meteor.userId(),
-            username: Meteor.user().username
+            username: Meteor.user().profile.name
         });
     },
     'tasks.remove' (taskId) {
