@@ -1,6 +1,28 @@
 <md-card>
-    <md-card-header>{{ $ctrl.planning.day | date : 'mediumDate' }}</md-card-header>
-    <md-card-content>
-
-    </md-card-content>
+    <md-card-header>
+        <md-card-header-text>
+            <md-title>{{ $ctrl.planning.day | date : 'mediumDate' }}</md-title>
+        </md-card-header-text>
+    </md-card-header>
+    <img src="http://www.een.be/files/een.be/imagecache/video_image/images/programmas/dagelijkse_kost/2011_voorjaar/dako_a181_recepten_tagliatelle_hd_app.jpg?" class="md-card-image">
+    <md-card-title layout="row" layout-align="space-between stretch">
+        <md-card-title-text>
+            <span class="md-headline">Tagliatelle met scampi, tomaat en groene kruiden</span>
+        </md-card-title-text>
+        <md-button class="md-icon-button">
+            <ng-md-icon icon="autorenew" aria-label="new recipe"></ng-md-icon>
+        </md-button>
+    </md-card-title>
+    <md-card-actions layout="row" layout-align="start center">
+        <md-card-icon-actions>
+            <ng-md-icon icon="group"></ng-md-icon>
+            <md-button class="md-icon-button" ng-click="$ctrl.decreaseNbOfEaters()" ng-disabled="$ctrl.planning.nbOfEaters <= 1">
+                <ng-md-icon icon="remove" aria-label="decrease eaters"></ng-md-icon>
+            </md-button>
+            {{ $ctrl.planning.nbOfEaters }}
+            <md-button class="md-icon-button" ng-click="$ctrl.increaseNbOfEaters()">
+                <ng-md-icon icon="add" aria-label="increase eaters"></ng-md-icon>
+            </md-button>
+        </md-card-icon-actions>
+    </md-card-actions>
 </md-card>
