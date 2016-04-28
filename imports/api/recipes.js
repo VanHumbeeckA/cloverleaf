@@ -35,6 +35,7 @@ Meteor.methods({
 
 
 
+
 var Schemas = Schemas || {};
 
 Schemas.Structured = new SimpleSchema({
