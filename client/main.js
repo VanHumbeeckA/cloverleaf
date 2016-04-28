@@ -2,7 +2,7 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import ngMaterial from 'angular-material';
 import todosList from '../imports/components/todosList/todosList';
-import navigation from '../imports/ui/components/navigation/navigation';
+import navigation from './components/navigation/navigation';
 import '../imports/startup/accounts-config';
 
 angular.module('cloverleaf', [

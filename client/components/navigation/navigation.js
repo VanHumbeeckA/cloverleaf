@@ -4,5 +4,5 @@ import template from './navigation.html';
 
 export default angular.module('navigation', [])
     .component('navigation', {
-        templateUrl: 'imports/ui/components/navigation/navigation.html',
+        templateUrl: 'client/components/navigation/navigation.html',
     })
