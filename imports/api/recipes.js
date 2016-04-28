@@ -7,12 +7,9 @@ export const Recipes = new Mongo.Collection('recipes');
 
 if (Meteor.isServer) {
     Meteor.publish('all-recipes-names', function recipesPublication() {
-        return Recipes.find({}, {name: 1});
+        return Recipes.find({}, {fields: {name: 1}});
     });
 
-    Meteor.publish('recipeCount', function recipesPublication() {
-        return Recipes.find({}, {name: 1}).count();
-    })
 }
 
 Meteor.methods({
@@ -23,7 +20,7 @@ Meteor.methods({
             throw new Meteor.Error('not-authorized');
         }
 
-        return Recipes.find().count();
+        return Recipes.find().fetch().length;
     }
 });
 
