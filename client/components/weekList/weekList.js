@@ -35,7 +35,7 @@ class WeekListCtrl {
                     }
                 }
             }
-            this.$q.all(promises).then(results=>{
+            this.$q.all(promises).then(results=> {
                 var obj = _.zipObject(indexes, results);
                 _.forEach(_.keys(obj), (key) => {
                     this.week[key].recipe = obj[key];
@@ -49,20 +49,26 @@ class WeekListCtrl {
             }
         });
 
-        Meteor.call('calendar.get',(error, result) => {
-            if(error) {
-                console.error(error);
+        this.autorun(() => {
+            if (Meteor.userId()) {
+                Meteor.call('calendar.get', (error, result) => {
+                    if (error) {
+                        console.error(error);
+                    } else {
+                        this.googleCalender = result;
+                        this.generateWeek();
+                        this.triggerPlanningsFlow.set(true);
+                    }
+                });
             } else {
-                this.googleCalender = result;
-                this.generateWeek();
-                this.triggerPlanningsFlow.set(true);
+
             }
         });
     }
 
     getRecipe(id) {
         var deferred = this.$q.defer();
-        var recipe = Meteor.call('recipes.getRecipe', id, function(err, result) {
+        var recipe = Meteor.call('recipes.getRecipe', id, function (err, result) {
             if (err) {
                 deferred.reject(err)
             } else {
@@ -84,8 +90,8 @@ class WeekListCtrl {
 
             var calenderEvents = [];
             for (var j = 0; j < this.googleCalender.length; j++) {
-                let startEventDate = this.googleCalender[j].start.date ? moment(this.googleCalender[j].start.date ) : moment(this.googleCalender[j].start.dateTime);
-                let endEventDate = this.googleCalender[j].start.date ? moment(this.googleCalender[j].end.date ) : moment(this.googleCalender[j].end.dateTime);
+                let startEventDate = this.googleCalender[j].start.date ? moment(this.googleCalender[j].start.date) : moment(this.googleCalender[j].start.dateTime);
+                let endEventDate = this.googleCalender[j].start.date ? moment(this.googleCalender[j].end.date) : moment(this.googleCalender[j].end.dateTime);
 
                 if (date.isSame(startEventDate, 'day')) {
                     calenderEvents.push({
@@ -116,7 +122,7 @@ class WeekListCtrl {
 
             // promises.push(this.suggesterSvc.getNewRecipe());
         }
-        
+
         this.$q.all(promises).then(results => {
             _.forEach(results, (recipe, index) => {
                 // this.week[index].recipe = recipe;
