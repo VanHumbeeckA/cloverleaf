@@ -11,9 +11,18 @@
     </md-card-header>
 
     <md-card-content layout="column" layout-align="space-between stretch">
-        <div ng-repeat="event in $ctrl.planning.calenderEvents" layout="row" layout-align="space-between stretch">
-            <strong>{{event.time}}</strong>&nbsp;&nbsp;
-            <span>{{event.summary}}</span>
+
+        <div class="cloverleaf-indent">
+            <div class="divider"></div>
+            <div ng-repeat="event in $ctrl.planning.calenderEvents">
+                <div class="cloverleaf-spacing"  layout="row" layout-align="space-between stretch">
+                    <strong>{{event.time}}</strong>&nbsp;&nbsp;
+                    <span>{{event.summary}}</span>
+                </div>
+                <div class="divider"></div>
+            </div>
+
+
         </div>
     </md-card-content>
 

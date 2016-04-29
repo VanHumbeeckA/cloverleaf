@@ -2,6 +2,21 @@ html, body {
     background-color: #efefef !important;
 }
 
+.divider {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+    margin-top:10px;
+}
+
+.cloverleaf-indent {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.cloverleaf-spacing {
+
+}
+
 .cloverfield-header-bg-color {
     background-color: #1C5792;
 }
