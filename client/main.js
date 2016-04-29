@@ -50,7 +50,7 @@ class RoutingConfig {
             .state('home', {
                 url: '/home',
                 templateUrl: 'client/views/home.html',
-                controller: 'homeCtrl'
+                controller: 'homeCtrl as ctrl'
             })
             .state('my-week', {
                 url: '/my-week',

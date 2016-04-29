@@ -12,7 +12,14 @@ class NavigationCtrl {
             this.loggedIn = true;
         }
         this.autorun(() => {
-            this.username = Meteor.user() ? Meteor.user().profile.name : "";
+
+
+                if(Meteor.user()){
+                    this.username = "Welkom " + Meteor.user().profile.name.split(' ')[0]+ "!";
+                    this.loggedIn = true;
+                } else{
+                    this.username = ""
+                };
         });
     }
 
@@ -28,7 +35,7 @@ class NavigationCtrl {
             else {
                 console.info("User logged in")
                 this.loggedIn = true;
-                this.username = Meteor.user().profile.name;
+                this.username = "Welkom " + Meteor.user().profile.name.split(' ')[0]+ "!";
                 this.$state.go('my-week');
             }
         });
