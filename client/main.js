@@ -20,6 +20,7 @@ export default angular.module('cloverleaf', [
     'accounts.ui',
     'ngMdIcons'
 ]).config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => new RoutingConfig($stateProvider, $urlRouterProvider)])
+    .config(['$mdThemingProvider', ($mdThemingProvider) => new ColorConfig($mdThemingProvider)])
     .run(($state, $rootScope) => {
         $rootScope.$on('$stateChangeStart', (e, toState) => {
             console.log(toState);
@@ -38,6 +39,14 @@ if (Meteor.isCordova) {
     angular.element(document).on('deviceready', onReady);
 } else {
     angular.element(document).ready(onReady);
+}
+
+class ColorConfig {
+    constructor($mdThemingProvider) {
+        $mdThemingProvider.theme('default')
+            .primaryPalette('teal')
+            .accentPalette('lime');
+    }
 }
 
 class RoutingConfig {
