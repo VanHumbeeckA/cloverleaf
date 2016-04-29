@@ -1,3 +1,15 @@
+html, body {
+    background-color: #efefef !important;
+}
+
+.cloverfield-header-bg-color {
+    background-color: #1C5792;
+}
+
+.cloverfield-header-bg-color2 {
+    background-color: rgb(12, 34, 56);
+}
+
 .pull-right {
     float: right;
 }
@@ -23,3 +35,54 @@
     width: 100%;
 }
 
+.cloverfield-image {
+    min-height: 150px;
+}
+
+.cloverfield-background-image-text {
+    color: white;
+}
+
+/* http://maketea.co.uk/2013/12/16/smooth-text-overlays-with-css-transforms.html */
+.caption {
+    position: relative;
+    overflow: hidden;
+}
+.caption__media {
+    display: block;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+.caption__overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    color: white;
+    transform: translateY(100%);
+    transition: transform .35s ease-out;
+}
+.caption:hover .caption__overlay {
+    transform: translateY(0);
+}
+
+.insetshadow {
+    color: white;
+    /*letter-spacing: .1em;*/
+    text-shadow: 0px 0px 7px #222
+}
+
+.hit-the-floor {
+    color: #fff;
+    font-size: 12em;
+    font-weight: bold;
+    font-family: Helvetica;
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+}
+
+.hit-the-floor {
+    text-align: center;
+}

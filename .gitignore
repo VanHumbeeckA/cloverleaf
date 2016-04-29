@@ -3,3 +3,4 @@ node_modules/
 .meteor/local
 .idea/*
 mup.json
+bower_components

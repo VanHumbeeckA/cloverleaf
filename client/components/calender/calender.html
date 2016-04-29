@@ -1,5 +1,5 @@
-<md-card>
-    <md-card-header>
+<md-card class="">
+    <md-card-header class="">
         <md-card-header-text layout="row" layout-align="space-between stretch">
             <md-title class="md-title" layout="row" >
                 <strong>{{$ctrl.planning.weekday}}</strong>
@@ -16,7 +16,8 @@
             <span>{{event.summary}}</span>
         </div>
     </md-card-content>
-    <md-card-actions layout="row" layout-align="start center">
+
+    <md-card-actions layout="row" layout-align="start center" >
         <md-card-icon-actions>
             <button class="md-button md-raised" ng-click="$ctrl.needFood()">Need food!</button>
         </md-card-icon-actions>

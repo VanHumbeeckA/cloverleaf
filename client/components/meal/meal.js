@@ -2,7 +2,8 @@ import compontents from '../module';
 
 class MealCtrl {
 
-    constructor(suggesterSvc) {
+    constructor($scope, suggesterSvc) {
+        $scope.viewModel(this);
         this.suggesterSvc = suggesterSvc;
     }
 
@@ -25,11 +26,20 @@ class MealCtrl {
                 Meteor.call('planning.update', planningToUpdate);
             });
     }
+
+    deleteRecipe() {
+        let planningToUpdate = {
+            day: this.planning.day,
+            nbOfEaters: this.planning.nbOfEaters,
+            recipe: null
+        };
+        Meteor.call('planning.update', planningToUpdate);
+    }
 }
 
 compontents.component('meal', {
     templateUrl: 'client/components/meal/meal.html',
-    controller: ['suggesterSvc', MealCtrl],
+    controller: ['$scope', 'suggesterSvc', MealCtrl],
     bindings: {
         planning: '='
     }

@@ -1,18 +1,30 @@
 
-<md-card>
+<md-card >
+    <md-card-header>
+        <md-card-header-text layout="row" layout-align="space-between stretch">
+            <md-title class="md-title" layout="row" >
+                <strong>{{$ctrl.planning.weekday}}</strong>
+            </md-title>
+            <md-title class="md-title" layout="row" layout-align="end center">
+                <span>{{ $ctrl.planning.day | date : 'mediumDate' }}</span>
+            </md-title>
+        </md-card-header-text>
+    </md-card-header>
+
+    <!--<img ng-src="{{$ctrl.planning.recipe.image}}" class="md-card-image">-->
+    <div class="md-card-image cloverfield-image" back-img="$ctrl.planning.recipe.image">
+        <md-card-title layout="row" layout-align="space-between stretch">
+            <md-card-title-text class="cloverfield-background-image-text insetshadow">
+                <span class="md-headline">{{ $ctrl.planning.recipe.name }}</span>
+            </md-card-title-text>
+        </md-card-title>
+    </div>
 
 
-    <img ng-src="{{$ctrl.planning.recipe.image}}" class="md-card-image">
-
-    <md-card-title layout="row" layout-align="space-between stretch">
-        <md-card-title-text>
-            <span class="md-headline">{{ $ctrl.planning.recipe.name }}</span>
-        </md-card-title-text>
-    </md-card-title>
 
     <md-card-actions layout="row" layout-align="start center">
         <md-card-icon-actions>
-            <ng-md-icon icon="group"></ng-md-icon>
+            <ng-md-icon icon="group" size="40"></ng-md-icon>
             <md-button class="md-icon-button" ng-click="$ctrl.decreaseNbOfEaters()"
                        ng-disabled="$ctrl.planning.nbOfEaters <= 1">
                 <ng-md-icon icon="remove" aria-label="decrease eaters"></ng-md-icon>
@@ -23,7 +35,7 @@
             </md-button>
 
             <div>
-                <md-button class="md-icon-button">
+                <md-button class="md-icon-button" ng-click="$ctrl.deleteRecipe()">
                     <ng-md-icon icon="delete" aria-label="no recipe this day"></ng-md-icon>
                 </md-button>
                 <md-button class="md-icon-button">

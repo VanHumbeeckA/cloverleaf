@@ -1,0 +1,19 @@
+{
+  "name": "cloverleaf",
+  "description": "",
+  "main": "",
+  "authors": [
+    "VanHumbeeckA <drikkesband@hotmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/VanHumbeeckA/cloverleaf",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {}
+}
