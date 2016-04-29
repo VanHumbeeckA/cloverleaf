@@ -3,6 +3,7 @@ import {Mongo} from 'meteor/mongo';
 import {check} from 'meteor/check';
 import {Planning} from './planning'
 import {Recipes} from './recipes'
+import moment from 'moment';
 
 // READ ONLY! no methods here!
 export const Products = new Mongo.Collection('products', {idGeneration: 'MONGO'});
@@ -26,7 +27,7 @@ Meteor.methods({
 
         return "done!";
 
-    },
+    }
 });
 
 var Schemas = Schemas || {};

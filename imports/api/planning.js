@@ -24,7 +24,7 @@ Meteor.methods({
         }
         
         // Planning.upsert()
-        return Planning.upsert({'day': moment(planning.day).format('YYYY-MM-DD'), 'userId': Meteor.userId()}, {$set: {
+        Planning.upsert({'day': moment(planning.day).format('YYYY-MM-DD'), 'userId': Meteor.userId()}, {$set: {
             day: moment(planning.day).format('YYYY-MM-DD'),
             userId: Meteor.userId(),
             meal: {
@@ -32,7 +32,24 @@ Meteor.methods({
                 recipeId: planning.recipe && planning.recipe._id ? planning.recipe._id._str : null
             }
         }});
+
+        var p = Planning.findOne({'day': moment(planning.day).format('YYYY-MM-DD'), 'userId': Meteor.userId()});
+
+        if (planning.recipe && planning.recipe._id) {
+            Meteor.call('meal.addProducts', p._id);
+        }
+
+        return 'done';
     },
+
+    'planning.delete' (planning) {
+        check(planning.day, Date);
+        // Make sure the user is Logged in
+        if (!Meteor.userId()) {
+            throw new Meteor.Error('not-authorized');
+        }
+        return Planning.remove({'day': moment(planning.day).format('YYYY-MM-DD'), 'userId': Meteor.userId()});
+    }
 })
 
 var Schemas = Schemas || {};
