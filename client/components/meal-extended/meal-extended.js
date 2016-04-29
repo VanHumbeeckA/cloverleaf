@@ -8,10 +8,10 @@ class MealExtendedCtrl {
         $scope.viewModel(this);
         this.suggesterSvc = suggesterSvc;
         this.$state = $state;
-        console.log(this.planning);
         this.subscribe('planning');
 
         var planning = this.planning;
+        if (planning == null) return;
         this.helpers({
             planning() {
                 return Planning.findOne({_id: new Meteor.Collection.ObjectID(planning._id)})
