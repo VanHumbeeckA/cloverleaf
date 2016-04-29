@@ -22,10 +22,11 @@ class WeekListCtrl {
 
         this.autorun(() => {
             this.triggerPlanningsFlow.get();
+            // this.week = [];
             var cursor = Planning.find({});
             var plannings = cursor.fetch();
             var promises = [];
-
+            debugger;
             var indexes = [];
             var nbOfEeaters = [];
 
@@ -35,6 +36,7 @@ class WeekListCtrl {
                         promises.push(this.getRecipe(plannings[i].meal.recipeId));
                         // nbOfEeaters.push(plannings[i].meal.nbOfEaters);
                         indexes.push(j);
+                        this.week[j].recipe = null;
 
                         this.week[j].nbOfEaters = plannings[i].meal.nbOfEaters;
                         this.week[j]._id = plannings[i]._id;

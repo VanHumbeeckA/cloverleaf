@@ -4,7 +4,6 @@
             <button class="md-button md-raised" ng-if="!$ctrl.loggedIn" ng-click="$ctrl.loginWithGoogle()">Login</button>
             <button class="md-button md-raised" ng-if="$ctrl.loggedIn" ng-click="$ctrl.logout()">Logout</button>
         </h2>
-        <button class="md-button md-raised" ng-click="$ctrl.test()">test</button>
         <span flex class="flex"></span>
         <span ng-if="$ctrl.loggedIn">{{$ctrl.username}}</span>
     </div>
