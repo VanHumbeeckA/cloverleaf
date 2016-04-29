@@ -1,5 +1,5 @@
 html, body {
-    background-color: #efefef;
+    background-color: #efefef !important;
 }
 
 .cloverfield-header-bg-color {
@@ -72,7 +72,7 @@ html, body {
 .insetshadow {
     color: white;
     /*letter-spacing: .1em;*/
-    text-shadow: 0px 0px 1px #999
+    text-shadow: 0px 0px 7px #222
 }
 
 .hit-the-floor {

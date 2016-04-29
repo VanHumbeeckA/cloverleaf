@@ -27,7 +27,7 @@ export default angular.module('cloverleaf', [
                 e.preventDefault();
                 $state.go('home');
             }
-        })
+        });
     });
 
 function onReady() {
