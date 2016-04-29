@@ -17,6 +17,7 @@ class MealCtrl {
     newRecipe() {
         this.suggesterSvc.getNewRecipe()
             .then(r => {
+                Meteor.call('recipes.up')
                 this.planning.recipe = r;
             });
     }

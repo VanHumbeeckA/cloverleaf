@@ -25,16 +25,25 @@ class WeekListCtrl {
             var cursor = Planning.find({});
             var plannings = cursor.fetch();
             var promises = [];
+
             var indexes = [];
+            var nbOfEeaters = [];
+
             for (var i = 0; i < plannings.length; i++) {
                 for (var j = 0; j < this.week.length; j++) {
                     if (moment(plannings[i].day).isSame(moment(this.week[j].day), 'day')) {
-                        // console.log(this.week[j])
                         promises.push(this.getRecipe(plannings[i].meal.recipeId));
+                        nbOfEeaters.push(plannings[i].meal.nbOfEaters);
                         indexes.push(j);
                     }
                 }
             }
+
+            var obj0 = _.zipObject(indexes, nbOfEeaters);
+            _.forEach(_.keys(obj0), (i) => {
+                this.week[i].nbOfEaters = obj0[i];
+            });
+
             this.$q.all(promises).then(results=>{
                 var obj = _.zipObject(indexes, results);
                 _.forEach(_.keys(obj), (key) => {
@@ -66,7 +75,6 @@ class WeekListCtrl {
             if (err) {
                 deferred.reject(err)
             } else {
-                console.log(result);
                 deferred.resolve(result)
             }
         });
@@ -76,8 +84,6 @@ class WeekListCtrl {
 
     generateWeek() {
         var today = moment();
-        var promises = [];
-
 
         for (var i = 0; i < 7; i++) {
             var date = moment(today).add(i, 'days');
@@ -112,16 +118,9 @@ class WeekListCtrl {
                 day: date.toDate(),
                 calenderEvents: calenderEvents
             };
-            this.week.push(planning);
 
-            // promises.push(this.suggesterSvc.getNewRecipe());
+            this.week.push(planning);
         }
-        
-        this.$q.all(promises).then(results => {
-            _.forEach(results, (recipe, index) => {
-                // this.week[index].recipe = recipe;
-            });
-        });
     }
 }
 
