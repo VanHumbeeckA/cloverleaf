@@ -87,6 +87,15 @@ class WeekListCtrl {
 
         return deferred.promise;
     }
+    
+    insertPlanning(planning) {
+        // let planningToUpdate = {
+        //     day: this.planning.day,
+        //     nbOfEaters: this.planning.nbOfEaters,
+        //     recipe: r
+        // };
+        Meteor.call('planning.update', planning);
+    }
 
     generateWeek() {
         var today = moment();

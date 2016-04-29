@@ -2,6 +2,9 @@
 <md-card >
     <md-card-header>
         <md-card-header-text layout="row" layout-align="space-between stretch">
+            <md-button class="md-icon-button" ng-click="$ctrl.goBack()">
+                <ng-md-icon icon="back" aria-label="go back"></ng-md-icon>
+            </md-button>
             <md-title class="md-title" layout="row" >
                 <strong>{{$ctrl.planning.weekday}}</strong>
             </md-title>
@@ -48,5 +51,9 @@
         </md-card-icon-actions>
     </md-card-actions>
 </md-card>
+
+<div>
+    {{$ctrl.planning}}
+</div>
 
 
