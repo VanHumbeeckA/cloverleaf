@@ -2,6 +2,10 @@ import compontents from '../module';
 
 class MealCtrl {
 
+    constructor(suggesterSvc) {
+        this.suggesterSvc = suggesterSvc;
+    }
+
     increaseNbOfEaters() {
         this.planning.nbOfEaters++;
     }
@@ -9,11 +13,18 @@ class MealCtrl {
     decreaseNbOfEaters() {
         this.planning.nbOfEaters--;
     }
+
+    newRecipe() {
+        this.suggesterSvc.getNewRecipe()
+            .then(r => {
+                this.planning.recipe = r;
+            });
+    }
 }
 
 compontents.component('meal', {
     templateUrl: 'client/components/meal/meal.html',
-    controller: [MealCtrl],
+    controller: ['suggesterSvc', MealCtrl],
     bindings: {
         planning: '='
     }

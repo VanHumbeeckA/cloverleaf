@@ -1,4 +1,18 @@
 <h1>My week</h1>
 <div layout="column">
-    <meal ng-repeat="day in $ctrl.week" planning="day"></meal>
+    <div layout="row" class="cloverfield-day-row" ng-repeat="day in $ctrl.week">
+
+        <!--<calender flex="50" planning="day"></calender>-->
+        <!--<meal flex="50" planning="day"></meal>-->
+        <calender
+                class="full-width"
+                planning="day"
+                ng-if="!day.recipe">
+        </calender>
+        <meal
+                class="full-width"
+                planning="day"
+                ng-if="!!day.recipe">
+        </meal>
+    </div>
 </div>

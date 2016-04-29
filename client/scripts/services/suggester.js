@@ -1,4 +1,5 @@
 import {Meteor} from 'meteor/meteor';
+// import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import {Recipes} from '../../../imports/api/recipes.js';
 import services from './module';
@@ -6,7 +7,8 @@ import services from './module';
 class Suggester {
     constructor($q) {
         this.$q = $q;
-        //this.subscribe('all-recipes-names');
+        // this.subscribe('all-recipes-names'); // TODO: not working
+
     }
 
     getNewRecipe() {
@@ -20,6 +22,13 @@ class Suggester {
             }
         });
         return deferred.promise;
+    }
+    
+    getRecipe(id) {
+        console.log(id);
+        var recipe = Recipes.findOne({_id: id});
+        console.log(recipe);
+        return recipe;
     }
 }
 
