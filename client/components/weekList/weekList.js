@@ -2,36 +2,43 @@ import angular from 'angular';
 import components from '../module';
 import moment from 'moment';
 import {Planning} from "../../../imports/api/planning.js";
+import {Recipes} from '../../../imports/api/recipes.js';
+import {lodash} from 'lodash';
 
 import template from './weekList.html';
 
 class WeekListCtrl {
     constructor($scope, $q, suggesterSvc) {
+        var _ = lodash;
         this.suggesterSvc = suggesterSvc;
         this.$q = $q;
         $scope.viewModel(this);
 
+        this.googleCalender = [];
+        this.week = [];
+        this.triggerPlanningsFlow = new ReactiveVar(false);
+
         this.subscribe('planning');
+        this.subscribe('all-recipes-names');
 
-        this.helpers({
-            planning() {
-                const selector = {};
-
-                // If hide completed is checked, filter tasks
-                // if (this.getReactively('hideCompleted')) {
-                //     selector.checked = {
-                //         $ne: true
-                //     };
-                // }
-
-                // var cursor = ;
-
-                return Planning.find({});
+        this.autorun(() => {
+            this.triggerPlanningsFlow.get();
+            var plannings = Planning.find({}).fetch();
+            for (var i = 0; i < plannings.length; i++) {
+                for (var j = 0; j < this.week.length; j++) {
+                    if (moment(plannings[i].day).isSame(moment(this.week[j].day), 'day')) {
+                        console.log(this.week[j])
+                        this.week[j].recipe = this.getRecipe(plannings[i].meal.recipeId);
+                    }
+                }
             }
         });
 
-        this.googleCalender = [];
-        this.week = [];
+        this.helpers({
+            planning() {
+                return Planning.find({});
+            }
+        });
 
         Meteor.call('calendar.get',(error, result) => {
             if(error) {
@@ -39,8 +46,15 @@ class WeekListCtrl {
             } else {
                 this.googleCalender = result;
                 this.generateWeek();
+                this.triggerPlanningsFlow.set(true);
             }
         });
+    }
+
+    getRecipe(id) {
+        var oid = new Meteor.Collection.ObjectID(id);
+        var recipe = Recipes.findOne(oid);
+        return recipe;
     }
 
     generateWeek() {
@@ -83,12 +97,12 @@ class WeekListCtrl {
             };
             this.week.push(planning);
 
-            promises.push(this.suggesterSvc.getNewRecipe());
+            // promises.push(this.suggesterSvc.getNewRecipe());
         }
         
         this.$q.all(promises).then(results => {
             _.forEach(results, (recipe, index) => {
-                this.week[index].recipe = recipe;
+                // this.week[index].recipe = recipe;
             });
         });
     }

@@ -11,7 +11,7 @@ class CalenderCtrl {
         this.suggesterSvc.getNewRecipe()
             .then(r => {
                 this.planning.recipe = r;
-                console.log(this.planning);
+                // console.log(this.planning);
                 Meteor.call('planning.update', this.planning);
             });
     }

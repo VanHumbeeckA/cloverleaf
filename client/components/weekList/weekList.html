@@ -4,16 +4,15 @@
 
         <!--<calender flex="50" planning="day"></calender>-->
         <!--<meal flex="50" planning="day"></meal>-->
-
         <calender
                 class="full-width"
                 planning="day"
-                ng-if="!day.planning.recipe">
+                ng-if="!day.recipe">
         </calender>
         <meal
                 class="full-width"
                 planning="day"
-                ng-if="!!day.planning.recipe">
+                ng-if="!!day.recipe">
         </meal>
     </div>
 </div>
