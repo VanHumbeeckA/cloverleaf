@@ -1,6 +1,7 @@
+import {Meteor} from 'meteor/meteor';
+import {Mongo} from 'meteor/mongo';
 import compontents from '../module';
 import {Planning} from '../../../imports/api/planning';
-import {Meteor} from 'meteor/meteor';
 
 class MealExtendedCtrl {
 
@@ -9,16 +10,41 @@ class MealExtendedCtrl {
         this.suggesterSvc = suggesterSvc;
         this.$state = $state;
         this.subscribe('planning');
+        this.recipeNameVar = new ReactiveVar("")
 
-        var planning = this.planning;
-        if (planning == null) return;
+        var plan = this.planning;
+        if (plan == null) return;
+
+
+
+        // debugger;
+        // var oid = new Meteor.Collection.ObjectID(planning._id);
         this.helpers({
             planning() {
-                return Planning.findOne({_id: new Meteor.Collection.ObjectID(planning._id)})
+                var p = Planning.findOne({_id: plan._id});
+                // console.log(p)
+                return p;
+            },
+            recipeName() {
+                return this.recipeNameVar.get()
             }
         });
-    }
 
+        this.autorun(() => {
+            var p = Planning.findOne({_id: plan._id});
+
+            Meteor.call('recipes.getRecipe', p.meal.recipeId, (err, result) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.log(result);
+                    this.recipe = result;
+                    this.recipeNameVar.set(result.name);
+                }
+            });
+        });
+
+    }
 
     goBack() {
         this.$state.go('my-week');

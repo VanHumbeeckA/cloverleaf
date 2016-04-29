@@ -23,12 +23,9 @@ class Suggester {
         });
         return deferred.promise;
     }
-    
+
     getRecipe(id) {
-        console.log(id);
-        var recipe = Recipes.findOne({_id: id});
-        console.log(recipe);
-        return recipe;
+        return Meteor.call('recipes.getRecipe', id);
     }
 }
 

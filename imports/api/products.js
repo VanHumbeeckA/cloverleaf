@@ -5,7 +5,7 @@ import {Planning} from './planning'
 import {Recipes} from './recipes'
 
 // READ ONLY! no methods here!
-export const Products = new Mongo.Collection('products');
+export const Products = new Mongo.Collection('products', {idGeneration: 'MONGO'});
 
 
 

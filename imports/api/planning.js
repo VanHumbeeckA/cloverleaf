@@ -4,7 +4,7 @@ import {check} from 'meteor/check';
 import moment from 'moment';
 
 // READ ONLY! no methods here!
-export const Planning = new Mongo.Collection('planning');
+export const Planning = new Mongo.Collection('planning', {idGeneration: 'MONGO'});
 
 if (Meteor.isServer) {
     Meteor.publish('planning', function planningPublication() {
@@ -24,7 +24,7 @@ Meteor.methods({
         }
         
         // Planning.upsert()
-        return Planning.upsert({'day': moment(planning.day).format('YYYY-MM-DD')}, {$set: {
+        return Planning.upsert({'day': moment(planning.day).format('YYYY-MM-DD'), 'userId': Meteor.userId()}, {$set: {
             day: moment(planning.day).format('YYYY-MM-DD'),
             userId: Meteor.userId(),
             meal: {
