@@ -35,6 +35,7 @@ class MealCtrl {
             recipe: null
         };
         Meteor.call('planning.delete', planningToUpdate);
+        this.planning.recipe = null;
     }
 
     chooseProducts() {
