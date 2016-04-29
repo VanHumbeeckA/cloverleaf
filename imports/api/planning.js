@@ -15,8 +15,7 @@ if (Meteor.isServer) {
 Meteor.methods({
     'planning.update' (planning) {
         check(planning.day, Date);
-
-
+        
         // console.log(planning);
 
         // Make sure the user is Logged in

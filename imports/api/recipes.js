@@ -17,8 +17,7 @@ if (Meteor.isServer) {
 
 Meteor.methods({
     'recipes.count' () {
-
-        // Make sure the user is Logged in
+        
         if (!Meteor.userId()) {
             throw new Meteor.Error('not-authorized');
         }
@@ -26,8 +25,25 @@ Meteor.methods({
         return Recipes.find().count();
     },
     'recipes.getNewRecipe' () {
+
+        if (!Meteor.userId()) {
+            throw new Meteor.Error('not-authorized');
+        }
+        
         // MAKE SURE INDEX ON rand IS SET!
         return Recipes.findOne({ rand: {$gte: Math.random() } }); // , {sort: {rand:1}, limit:1}).fetch()
+    },
+    
+    'recipes.getRecipe' (id) {
+        
+        if (!Meteor.userId()) {
+            throw new Meteor.Error('not-authorized');
+        }
+
+        var oid = new Meteor.Collection.ObjectID(id);
+        var recipe = Recipes.findOne(oid);
+        // console.log(recipe);
+        return recipe;
     }
 });
 

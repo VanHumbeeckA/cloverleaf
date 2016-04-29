@@ -3,7 +3,7 @@ import components from '../module';
 import moment from 'moment';
 import {Planning} from "../../../imports/api/planning.js";
 import {Recipes} from '../../../imports/api/recipes.js';
-import {lodash} from 'lodash';
+import lodash from 'lodash';
 
 import template from './weekList.html';
 
@@ -19,19 +19,37 @@ class WeekListCtrl {
         this.triggerPlanningsFlow = new ReactiveVar(false);
 
         this.subscribe('planning');
-        this.subscribe('all-recipes-names');
 
         this.autorun(() => {
             this.triggerPlanningsFlow.get();
-            var plannings = Planning.find({}).fetch();
+            var cursor = Planning.find({});
+            var plannings = cursor.fetch();
+            var promises = [];
+
+            var indexes = [];
+            var nbOfEeaters = [];
+
             for (var i = 0; i < plannings.length; i++) {
                 for (var j = 0; j < this.week.length; j++) {
                     if (moment(plannings[i].day).isSame(moment(this.week[j].day), 'day')) {
-                        console.log(this.week[j])
-                        this.week[j].recipe = this.getRecipe(plannings[i].meal.recipeId);
+                        promises.push(this.getRecipe(plannings[i].meal.recipeId));
+                        nbOfEeaters.push(plannings[i].meal.nbOfEaters);
+                        indexes.push(j);
                     }
                 }
             }
+
+            var obj0 = _.zipObject(indexes, nbOfEeaters);
+            _.forEach(_.keys(obj0), (i) => {
+                this.week[i].nbOfEaters = obj0[i];
+            });
+
+            this.$q.all(promises).then(results=>{
+                var obj = _.zipObject(indexes, results);
+                _.forEach(_.keys(obj), (key) => {
+                    this.week[key].recipe = obj[key];
+                });
+            })
         });
 
         this.helpers({
@@ -52,15 +70,20 @@ class WeekListCtrl {
     }
 
     getRecipe(id) {
-        var oid = new Meteor.Collection.ObjectID(id);
-        var recipe = Recipes.findOne(oid);
-        return recipe;
+        var deferred = this.$q.defer();
+        var recipe = Meteor.call('recipes.getRecipe', id, function(err, result) {
+            if (err) {
+                deferred.reject(err)
+            } else {
+                deferred.resolve(result)
+            }
+        });
+
+        return deferred.promise;
     }
 
     generateWeek() {
         var today = moment();
-        var promises = [];
-
 
         for (var i = 0; i < 7; i++) {
             var date = moment(today).add(i, 'days');
@@ -95,16 +118,9 @@ class WeekListCtrl {
                 day: date.toDate(),
                 calenderEvents: calenderEvents
             };
-            this.week.push(planning);
 
-            // promises.push(this.suggesterSvc.getNewRecipe());
+            this.week.push(planning);
         }
-        
-        this.$q.all(promises).then(results => {
-            _.forEach(results, (recipe, index) => {
-                // this.week[index].recipe = recipe;
-            });
-        });
     }
 }
 

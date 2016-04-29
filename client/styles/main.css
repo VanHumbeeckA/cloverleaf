@@ -4,8 +4,22 @@
 
 .cloverfield-day-row {
     max-width: 800px;
+    width: 100%;
+}
+
+@media (max-width: 600px) {
+    .cloverfield-adaptive-width {
+        max-width: 800px;
+        width: 100%;
+    }
+}
+@media (min-width: 600px) {
+    .cloverfield-adaptive-width {
+        width: 600px;
+    }
 }
 
 .full-width {
     width: 100%;
 }
+
