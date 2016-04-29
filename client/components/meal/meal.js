@@ -2,9 +2,10 @@ import compontents from '../module';
 
 class MealCtrl {
 
-    constructor($scope, suggesterSvc) {
+    constructor($scope, $state, suggesterSvc) {
         $scope.viewModel(this);
         this.suggesterSvc = suggesterSvc;
+        this.$state = $state;
     }
 
     increaseNbOfEaters() {
@@ -35,11 +36,18 @@ class MealCtrl {
         };
         Meteor.call('planning.update', planningToUpdate);
     }
+
+    chooseProducts() {
+        let p = this.planning;
+        this.$state.go('recipe-product-details', {
+            planning: p
+        })
+    }
 }
 
 compontents.component('meal', {
     templateUrl: 'client/components/meal/meal.html',
-    controller: ['$scope', 'suggesterSvc', MealCtrl],
+    controller: ['$scope', '$state', 'suggesterSvc', MealCtrl],
     bindings: {
         planning: '='
     }

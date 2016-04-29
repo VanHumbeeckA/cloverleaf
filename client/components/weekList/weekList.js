@@ -33,16 +33,19 @@ class WeekListCtrl {
                 for (var j = 0; j < this.week.length; j++) {
                     if (moment(plannings[i].day).isSame(moment(this.week[j].day), 'day')) {
                         promises.push(this.getRecipe(plannings[i].meal.recipeId));
-                        nbOfEeaters.push(plannings[i].meal.nbOfEaters);
+                        // nbOfEeaters.push(plannings[i].meal.nbOfEaters);
                         indexes.push(j);
+
+                        this.week[j].nbOfEaters = plannings[i].meal.nbOfEaters;
+                        this.week[j]._id = plannings[i]._id;
                     }
                 }
             }
 
-            var obj0 = _.zipObject(indexes, nbOfEeaters);
-            _.forEach(_.keys(obj0), (i) => {
-                this.week[i].nbOfEaters = obj0[i];
-            });
+            // var obj0 = _.zipObject(indexes, nbOfEeaters);
+            // _.forEach(_.keys(obj0), (i) => {
+            //     this.week[i].nbOfEaters = obj0[i];
+            // });
 
             this.$q.all(promises).then(results=>{
                 var obj = _.zipObject(indexes, results);
@@ -86,6 +89,15 @@ class WeekListCtrl {
         });
 
         return deferred.promise;
+    }
+    
+    insertPlanning(planning) {
+        // let planningToUpdate = {
+        //     day: this.planning.day,
+        //     nbOfEaters: this.planning.nbOfEaters,
+        //     recipe: r
+        // };
+        Meteor.call('planning.update', planning);
     }
 
     generateWeek() {

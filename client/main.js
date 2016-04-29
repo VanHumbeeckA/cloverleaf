@@ -56,6 +56,19 @@ class RoutingConfig {
                 url: '/my-week',
                 templateUrl: 'client/views/my-week.html'
             })
+            .state('recipe-product-details', {
+                url: '/recipe-product-details',
+                templateUrl: 'client/views/recipe-product-details.html',
+                controller: function($scope, $state, $stateParams) {
+                    if ($stateParams.planning == null) {
+                        $state.go('my-week');
+                    }
+                    $scope.planning = $stateParams.planning;
+                },
+                params: {
+                    planning: null
+                }
+            })
             .state('suggester', {
                 url: '/suggester',
                 templateUrl: 'client/views/suggest-random.html'

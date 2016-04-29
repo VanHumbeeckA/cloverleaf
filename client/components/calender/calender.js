@@ -10,9 +10,14 @@ class CalenderCtrl {
     needFood() {
         this.suggesterSvc.getNewRecipe()
             .then(r => {
-                this.planning.recipe = r;
-                // console.log(this.planning);
-                Meteor.call('planning.update', this.planning);
+                // this.planning.recipe = r;
+                console.log(this.planning);
+                let planningToUpdate = {
+                    day: this.planning.day,
+                    nbOfEaters: this.planning.nbOfEaters,
+                    recipe: r
+                };
+                Meteor.call('planning.update', planningToUpdate);
             });
     }
 

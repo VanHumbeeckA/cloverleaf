@@ -3,7 +3,7 @@ import {Mongo} from 'meteor/mongo';
 import {check} from 'meteor/check';
 
 // READ ONLY! no methods here!
-export const Recipes = new Mongo.Collection('recipes');
+export const Recipes = new Mongo.Collection('recipes', {idGeneration: 'MONGO'});
 
 if (Meteor.isServer) {
     Meteor.publish('all-recipes-names', function recipesPublication() {
@@ -35,6 +35,7 @@ Meteor.methods({
     },
     
     'recipes.getRecipe' (id) {
+        check(id, String);
         
         if (!Meteor.userId()) {
             throw new Meteor.Error('not-authorized');
@@ -42,7 +43,9 @@ Meteor.methods({
 
         var oid = new Meteor.Collection.ObjectID(id);
         var recipe = Recipes.findOne(oid);
-        // console.log(recipe);
+        if (recipe && recipe.name) {
+            console.log(recipe.name);
+        }
         return recipe;
     }
 });

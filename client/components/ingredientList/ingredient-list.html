@@ -1,0 +1,6 @@
+<md-list>
+    <md-list-item ng-repeat="ingredient in $ctrl.ingredients">
+        <ingredient ingredient="ingredient" class="full-width"></ingredient>
+        <md-divider ng-if="!$last"></md-divider>
+    </md-list-item>
+</md-list>

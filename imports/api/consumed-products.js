@@ -3,7 +3,7 @@ import {Mongo} from 'meteor/mongo';
 import {check} from 'meteor/check';
 
 // READ ONLY! no methods here!
-export const ConsumedProducts = new Mongo.Collection('consumedProducts');
+export const ConsumedProducts = new Mongo.Collection('consumedProducts',{idGeneration: 'MONGO'});
 
 var Schemas = Schemas || {};
 

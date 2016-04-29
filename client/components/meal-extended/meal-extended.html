@@ -1,6 +1,9 @@
 <md-card>
     <md-card-header>
         <md-card-header-text layout="row" layout-align="space-between stretch">
+            <md-button class="md-icon-button" ng-click="$ctrl.goBack()">
+                <md-icon md-svg-src="img/icons/back.svg" aria-label="go back"></md-icon>
+            </md-button>
             <md-title class="md-title" layout="row">
                 <strong>{{$ctrl.planning.weekday}}</strong>
             </md-title>
@@ -9,14 +12,15 @@
             </md-title>
         </md-card-header-text>
     </md-card-header>
-    <!--<img ng-src="{{$ctrl.planning.recipe.image}}" class="md-card-image">-->
-    <div class="md-card-image cloverfield-image" back-img="$ctrl.planning.recipe.image">
+
+    <div class="md-card-image cloverfield-image" back-img="$ctrl.recipe.image">
         <md-card-title layout="row" layout-align="space-between stretch">
             <md-card-title-text class="cloverfield-background-image-text insetshadow">
-                <span class="md-headline">{{ $ctrl.planning.recipe.name }}</span>
+                <span class="md-headline">{{ $ctrl.recipe.name }}</span>
             </md-card-title-text>
         </md-card-title>
     </div>
+
     <md-card-actions>
         <md-card-icon-actions layout="row" layout-align="space-between start">
             <div>
@@ -43,6 +47,7 @@
                 </md-button>
             </div>
         </md-card-icon-actions>
+        <ingredient-list ingredients="$ctrl.recipe.ingredients"></ingredient-list>
     </md-card-actions>
 </md-card>
 
