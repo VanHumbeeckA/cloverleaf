@@ -26,7 +26,6 @@ class WeekListCtrl {
             var cursor = Planning.find({});
             var plannings = cursor.fetch();
             var promises = [];
-            debugger;
             var indexes = [];
             var nbOfEeaters = [];
 
@@ -36,7 +35,6 @@ class WeekListCtrl {
                         promises.push(this.getRecipe(plannings[i].meal.recipeId));
                         // nbOfEeaters.push(plannings[i].meal.nbOfEaters);
                         indexes.push(j);
-                        this.week[j].recipe = null;
 
                         this.week[j].nbOfEaters = plannings[i].meal.nbOfEaters;
                         this.week[j]._id = plannings[i]._id;
@@ -53,6 +51,7 @@ class WeekListCtrl {
                 var obj = _.zipObject(indexes, results);
                 _.forEach(_.keys(obj), (key) => {
                     this.week[key].recipe = obj[key];
+                    console.log(obj[key]);
                 });
             })
         });
