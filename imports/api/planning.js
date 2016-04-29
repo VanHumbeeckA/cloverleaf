@@ -37,13 +37,36 @@ Meteor.methods({
 
 var Schemas = Schemas || {};
 
+Schemas.Product = new SimpleSchema({
+       ingredientName: {
+           type: String,
+           optional: true
+       },
+       name:  {
+           type: String,
+           optional: true
+       },
+        price:  {
+            type: String,
+            optional: true
+        },
+       pic:  {
+           type: String,
+           optional: true
+       },
+        unit:  {
+            type: String,
+            optional: true
+        }
+});
+
 Schemas.Meal = new SimpleSchema({
     nbOfEaters: {
         type: Number,
         min: 1
     },
-    consumedProductIds: {
-        type: [String],
+    products: {
+        type: [Schemas.Product],
         optional: true // TODO
     },
     recipeId: {
