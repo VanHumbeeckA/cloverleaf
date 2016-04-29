@@ -8,12 +8,12 @@
         <calender
                 class="full-width"
                 planning="day"
-                ng-if="!day.planning.meal">
+                ng-if="!day.planning.recipe">
         </calender>
         <meal
                 class="full-width"
                 planning="day"
-                ng-if="day.planning.meal">
+                ng-if="!!day.planning.recipe">
         </meal>
     </div>
 </div>

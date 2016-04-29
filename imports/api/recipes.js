@@ -7,11 +7,11 @@ export const Recipes = new Mongo.Collection('recipes');
 
 if (Meteor.isServer) {
     Meteor.publish('all-recipes-names', function recipesPublication() {
-        return Recipes.find({}, {name: 1});
+        return Recipes.find({});
     });
 
     Meteor.publish('recipeCount', function recipesPublication() {
-        return Recipes.find({}, {name: 1}).count();
+        return Recipes.find({}).count();
     })
 }
 

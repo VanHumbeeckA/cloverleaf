@@ -23,7 +23,7 @@ Meteor.methods({
 
         };
         var result=HTTP.get('https://www.googleapis.com/calendar/v3/calendars/primary/events', options);
-        console.log(filterEventKeys(result.data.items));
+        // console.log(filterEventKeys(result.data.items));
         //console.log(ISODateString(new Date()));
 
         return filterEventKeys(result.data.items);

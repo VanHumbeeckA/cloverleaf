@@ -1,6 +1,7 @@
 import angular from 'angular';
 import components from '../module';
 import moment from 'moment';
+import {Planning} from "../../../imports/api/planning.js";
 
 import template from './weekList.html';
 
@@ -10,9 +11,23 @@ class WeekListCtrl {
         this.$q = $q;
         $scope.viewModel(this);
 
+        this.subscribe('planning');
 
         this.helpers({
+            planning() {
+                const selector = {};
 
+                // If hide completed is checked, filter tasks
+                // if (this.getReactively('hideCompleted')) {
+                //     selector.checked = {
+                //         $ne: true
+                //     };
+                // }
+
+                // var cursor = ;
+
+                return Planning.find({});
+            }
         });
 
         this.googleCalender = [];
@@ -64,7 +79,6 @@ class WeekListCtrl {
             var planning = {
                 weekday: date.format('dddd'),
                 day: date.toDate(),
-                nbOfEaters: 2, // TODO: from DB
                 calenderEvents: calenderEvents
             };
             this.week.push(planning);
