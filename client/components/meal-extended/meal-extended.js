@@ -1,4 +1,6 @@
 import compontents from '../module';
+import {Planning} from '../../../imports/api/planning';
+import {Meteor} from 'meteor/meteor';
 
 class MealExtendedCtrl {
 
@@ -7,8 +9,15 @@ class MealExtendedCtrl {
         this.suggesterSvc = suggesterSvc;
         this.$state = $state;
         console.log(this.planning);
-    }
+        this.subscribe('planning');
 
+        var planning = this.planning;
+        this.helpers({
+            planning() {
+                return Planning.findOne({_id: new Meteor.Collection.ObjectID(planning._id)})
+            }
+        });
+    }
 
 
     goBack() {
