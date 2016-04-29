@@ -3,7 +3,7 @@ import components from '../module';
 import moment from 'moment';
 import {Planning} from "../../../imports/api/planning.js";
 import {Recipes} from '../../../imports/api/recipes.js';
-import {lodash} from 'lodash';
+import lodash from 'lodash';
 
 import template from './weekList.html';
 
@@ -19,19 +19,28 @@ class WeekListCtrl {
         this.triggerPlanningsFlow = new ReactiveVar(false);
 
         this.subscribe('planning');
-        this.subscribe('all-recipes-names');
 
         this.autorun(() => {
             this.triggerPlanningsFlow.get();
-            var plannings = Planning.find({}).fetch();
+            var cursor = Planning.find({});
+            var plannings = cursor.fetch();
+            var promises = [];
+            var indexes = [];
             for (var i = 0; i < plannings.length; i++) {
                 for (var j = 0; j < this.week.length; j++) {
                     if (moment(plannings[i].day).isSame(moment(this.week[j].day), 'day')) {
-                        console.log(this.week[j])
-                        this.week[j].recipe = this.getRecipe(plannings[i].meal.recipeId);
+                        // console.log(this.week[j])
+                        promises.push(this.getRecipe(plannings[i].meal.recipeId));
+                        indexes.push(j);
                     }
                 }
             }
+            this.$q.all(promises).then(results=>{
+                var obj = _.zipObject(indexes, results);
+                _.forEach(_.keys(obj), (key) => {
+                    this.week[key].recipe = obj[key];
+                });
+            })
         });
 
         this.helpers({
@@ -52,9 +61,17 @@ class WeekListCtrl {
     }
 
     getRecipe(id) {
-        var oid = new Meteor.Collection.ObjectID(id);
-        var recipe = Recipes.findOne(oid);
-        return recipe;
+        var deferred = this.$q.defer();
+        var recipe = Meteor.call('recipes.getRecipe', id, function(err, result) {
+            if (err) {
+                deferred.reject(err)
+            } else {
+                console.log(result);
+                deferred.resolve(result)
+            }
+        });
+
+        return deferred.promise;
     }
 
     generateWeek() {
