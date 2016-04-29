@@ -1,7 +1,7 @@
 <md-card class="">
     <md-card-header class="">
         <md-card-header-text layout="row" layout-align="space-between stretch">
-            <md-title class="md-title" layout="row" >
+            <md-title class="md-title" layout="row">
                 <strong>{{$ctrl.planning.weekday}}</strong>
             </md-title>
             <md-title class="md-title" layout="row" layout-align="end center">
@@ -17,9 +17,11 @@
         </div>
     </md-card-content>
 
-    <md-card-actions layout="row" layout-align="start center" >
+    <md-card-actions layout="row" layout-align="start center">
         <md-card-icon-actions>
-            <button class="md-button md-raised" ng-click="$ctrl.needFood()">Need food!</button>
+            <md-button class="md-fab" aria-label="Need food" ng-click="$ctrl.needFood()">
+                <md-icon md-svg-src="img/icons/restaurant.svg"></md-icon>
+            </md-button>
         </md-card-icon-actions>
     </md-card-actions>
 
