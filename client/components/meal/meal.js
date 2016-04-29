@@ -2,7 +2,8 @@ import compontents from '../module';
 
 class MealCtrl {
 
-    constructor(suggesterSvc) {
+    constructor($scope, suggesterSvc) {
+        $scope.viewModel(this);
         this.suggesterSvc = suggesterSvc;
     }
 
@@ -38,7 +39,7 @@ class MealCtrl {
 
 compontents.component('meal', {
     templateUrl: 'client/components/meal/meal.html',
-    controller: ['suggesterSvc', MealCtrl],
+    controller: ['$scope', 'suggesterSvc', MealCtrl],
     bindings: {
         planning: '='
     }
