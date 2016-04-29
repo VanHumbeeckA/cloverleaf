@@ -3,11 +3,20 @@ import components from '../module';
 import template from './navigation.html';
 
 class NavigationCtrl {
-    constructor($scope) {
+    constructor($scope, $state) {
+        this.$state = $state;
         $scope.viewModel(this);
-        this.username = "";
         this.loggedIn = false;
+        this.username = "";
+        if (Meteor.userId()) {
+            this.loggedIn = true;
+        }
+        this.autorun(() => {
+            this.username = Meteor.user() ? Meteor.user().profile.name : "";
+        });
     }
+
+
 
     loginWithGoogle(){
         Meteor.loginWithGoogle({ requestPermissions:['https://www.googleapis.com/auth/calendar.readonly']}, (err) => {
@@ -20,6 +29,7 @@ class NavigationCtrl {
                 console.info("User logged in")
                 this.loggedIn = true;
                 this.username = Meteor.user().profile.name;
+                this.$state.go('my-week');
             }
         });
     }
@@ -34,6 +44,7 @@ class NavigationCtrl {
     logout(){
         Meteor.logout( (err) => {
             this.loggedIn = false;
+            this.$state.go('home');
             if(err)console.error(err);
         });
     }
@@ -43,5 +54,5 @@ class NavigationCtrl {
 components
     .component('navigation', {
         templateUrl: 'client/components/navigation/navigation.html',
-        controller: ['$scope', NavigationCtrl]
+        controller: ['$scope', '$state', NavigationCtrl]
     })

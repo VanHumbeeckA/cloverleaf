@@ -5,19 +5,30 @@ import uiRouter from 'angular-ui-router';
 import todosList from '../imports/components/todosList/todosList';
 import components from './components/module';
 import services from './scripts/services/module';
+import app from './scripts/module';
 import 'angular-material-icons';
 import '../imports/startup/accounts-config';
 
-angular.module('cloverleaf', [
+export default angular.module('cloverleaf', [
     angularMeteor,
     ngMaterial,
     uiRouter,
     todosList.name,
     components.name,
     services.name,
+    app.name,
     'accounts.ui',
     'ngMdIcons'
-]).config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => new RoutingConfig($stateProvider, $urlRouterProvider)]);
+]).config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => new RoutingConfig($stateProvider, $urlRouterProvider)])
+    .run(($state, $rootScope) => {
+        $rootScope.$on('$stateChangeStart', (e, toState) => {
+            console.log(toState);
+            if (toState.name != 'home' && !Meteor.userId()) {
+                e.preventDefault();
+                $state.go('home');
+            }
+        })
+    });
 
 function onReady() {
     angular.bootstrap(document, ['cloverleaf']);
@@ -33,9 +44,14 @@ class RoutingConfig {
 
     constructor($stateProvider, $urlRouterProvider) {
 
-        $urlRouterProvider.otherwise('/my-week');
+        $urlRouterProvider.otherwise('/home');
 
         $stateProvider
+            .state('home', {
+                url: '/home',
+                templateUrl: 'client/views/home.html',
+                controller: 'homeCtrl'
+            })
             .state('my-week', {
                 url: '/my-week',
                 templateUrl: 'client/views/my-week.html'
