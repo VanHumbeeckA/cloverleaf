@@ -59,9 +59,8 @@ class RoutingConfig {
             .state('recipe-product-details', {
                 url: '/recipe-product-details',
                 templateUrl: 'client/views/recipe-product-details.html',
-                controller: function($stateParams) {
-                    var ctrl = this;
-                    ctrl.planning = $stateParams.planning;
+                controller: function($scope, $stateParams) {
+                    $scope.planning = $stateParams.planning;
                 },
                 params: {
                     planning: null

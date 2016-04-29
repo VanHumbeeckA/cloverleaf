@@ -38,8 +38,9 @@ class MealCtrl {
     }
 
     chooseProducts() {
+        let p = this.planning;
         this.$state.go('recipe-product-details', {
-            planning: this.planning
+            planning: p
         })
     }
 }
