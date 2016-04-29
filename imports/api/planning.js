@@ -36,7 +36,7 @@ Meteor.methods({
         var p = Planning.findOne({'day': moment(planning.day).format('YYYY-MM-DD'), 'userId': Meteor.userId()});
 
         if (planning.recipe && planning.recipe._id) {
-            Meteor.call('meal.addProducts', p._id);
+            // Meteor.call('meal.addProducts', p._id);
         }
 
         return 'done';
