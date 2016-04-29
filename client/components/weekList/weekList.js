@@ -51,14 +51,16 @@ class WeekListCtrl {
                 var obj = _.zipObject(indexes, results);
                 _.forEach(_.keys(obj), (key) => {
                     this.week[key].recipe = obj[key];
-                    console.log(obj[key]);
                 });
-            })
+            });
         });
 
         this.helpers({
             planning() {
                 return Planning.find({});
+            }, weekTest() {
+                var p = Planning.find({});
+                return this.getReactively('week');
             }
         });
 
