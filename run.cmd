@@ -1,2 +1,2 @@
-set MONGO_URL=mongodb://devuser:teamwouterforthewin@ds011790.mlab.com:11790/hackathon-mongo
+set MONGO_URL=mongodb://devuser:Password1@ds032319.mlab.com:32319/cloverleaf
 meteor

@@ -35,7 +35,7 @@ class NavigationCtrl {
     }
 
     test(){
-        Meteor.call('calendar.get',function(error, result) {
+        Meteor.call('meal.addProducts','HeccNMgd8QoR2JR5k',function(error, result) {
             if(error) console.error(error);
             console.log(result );
         });
