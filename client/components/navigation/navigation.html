@@ -1,4 +1,4 @@
-<md-toolbar>
+<md-toolbar ng-if="$ctrl.loggedIn" style="background-color: #19332d">
     <div class="md-toolbar-tools">
         <h2>
             <button class="md-button md-raised" ng-if="!$ctrl.loggedIn" ng-click="$ctrl.loginWithGoogle()">Login</button>
