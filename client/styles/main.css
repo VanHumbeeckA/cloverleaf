@@ -1,5 +1,14 @@
 html, body {
-    background-color: #efefef !important;
+    background-color: #efefef;
+    background-image: url('../../images/sayagata-400px.png') !important;
+}
+html,
+body {
+
+}
+
+.clover-center {
+    text-align: center;
 }
 
 .divider {
