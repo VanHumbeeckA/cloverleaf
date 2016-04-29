@@ -3,13 +3,13 @@
         <p>{{ $ctrl.ingredient.structured.ingredient }}</p>
     </div>
     <div>
-        <md-button class="md-fab md-mini">
+        <md-button class="md-fab md-mini" aria-label="cheapass" ng-class="{'md-primary': $ctrl.ingredient.type == 'cheapass'}" ng-click="$ctrl.ingredient.type = 'cheapass'">
             <md-icon md-svg-src="img/icons/euro_symbol.svg"></md-icon>
         </md-button>
-        <md-button class="md-fab md-mini">
+        <md-button class="md-fab md-mini" aria-label="geitenwollensok" ng-class="{'md-primary': $ctrl.ingredient.type == 'geitenwollensok'}" ng-click="$ctrl.ingredient.type = 'geitenwollensok'">
             <md-icon md-svg-src="img/icons/local_florist.svg"></md-icon>
         </md-button>
-        <md-button class="md-fab md-mini">
+        <md-button class="md-fab md-mini" aria-label="big spender" ng-class="{'md-primary': $ctrl.ingredient.type == 'big spender'}" ng-click="$ctrl.ingredient.type = 'big spender'">
             <md-icon md-svg-src="img/icons/star_rate.svg"></md-icon>
         </md-button>
     </div>
